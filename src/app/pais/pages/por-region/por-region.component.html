@@ -1,0 +1,66 @@
+<div class="animate__animated animate__fadeIn animate__faster">
+    <h3>Buscar por región: <small>{{ regionActiva | titlecase }}</small></h3>
+    <hr />
+
+    <h5>Seleccione la región</h5>
+
+    <div class="row">
+        <div class="col">
+
+            <!-- Fijarse cómo le añadimos la clase active de bootstrap a los botones
+                
+                FORMA 1: definir en el css una clase y si se cumple la condición que definamos, se le aplica
+                --------
+                [ngClass]="{
+                    'clase de css': condición,
+                    'otra clase': otra condición,
+                    'otra clase': ...
+                }" 
+
+                EJEMPLO
+                [ngClass]="{
+                    'active': region === regionActiva
+                }" 
+
+                *nota: este caso parte de la base de que los botones ya tienen algunas clases definidas (class="btn btn-outline-primary") y sólo 
+                añadimos el active en función de si la condición se cumple o no
+
+
+                FORMA 2: parecida a la de antes
+                --------
+                [class.clase]="condición" 
+
+                EJEMPLO
+                [class.active]="region === regionActiva"
+
+                *nota: este caso parte de la base de que los botones ya tienen algunas clases definidas (class="btn btn-outline-primary") y sólo 
+                añadimos el active en función de si la condición se cumple o no
+
+
+                FORMA 3: definiendo directamente todas las clases en función de la condición
+                --------
+                [class]="(condicion) ? 'clase/s' : 'clase/s'"
+
+                EJEMPLO
+                [class]="(region === regionActiva)? 'btn btn-outline-primary active': 'btn btn-outline-primary'"
+                
+
+                FORMA 4: definiendo un método en el .ts que sea el que evalúa la condición y en función de eso me retorna las clases css (la que vamos a usar)
+                --------
+
+            
+            -->
+            <button *ngFor="let region of regiones" 
+                    [class]="getClaseCss(region)" 
+                    (click)="activarRegion(region)">
+                {{ region | titlecase }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5" *ngIf="paises.length > 0">
+    <div class="col">
+        <app-pais-tabla [paises]="paises"></app-pais-tabla>
+    </div>
+</div>
